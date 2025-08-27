@@ -14,8 +14,8 @@ DEFAULT_PREFIX = '/usr/local/nginx'
 DEFAULT_CONFPATH = 'conf/nginx.conf'
 
 _SSL_LIB_CAPTURE_GROUPS = r'(\S+) +(\S+)(?: +(\d{1,2} +\w{3,} +\d{4}))?'
-BUILT_WITH_RE = re.compile('^built with ' + _SSL_LIB_CAPTURE_GROUPS)
-RUNNING_WITH_RE = re.compile('\(running with ' + _SSL_LIB_CAPTURE_GROUPS + '\)$')
+BUILT_WITH_RE = re.compile(r'^built with ' + _SSL_LIB_CAPTURE_GROUPS)
+RUNNING_WITH_RE = re.compile(r'\(running with ' + _SSL_LIB_CAPTURE_GROUPS + r'\)$')
 RUN_WITH_RE = re.compile('^run with ' + _SSL_LIB_CAPTURE_GROUPS)
 
 
@@ -59,12 +59,12 @@ def nginx_v(bin_path):
         key, value = parts
         if key == 'nginx version':
             # parse major version
-            major_parsed = re.match('.*/([\d\w\.]+)', value)
+            major_parsed = re.match(r'.*/([\d\w\.]+)', value)
             result['version'] = major_parsed.group(1) if major_parsed else value.lstrip()
 
             # parse plus version
             if 'plus' in value:
-                plus_parsed = re.match('.*\(([\w\-]+)\).*', value)
+                plus_parsed = re.match(r'.*\(([\w\-]+)\).*', value)
                 if plus_parsed:
                     result['plus']['enabled'] = True
                     result['plus']['release'] = plus_parsed.group(1)

@@ -15,12 +15,12 @@ __email__ = "grant.hulegaard@nginx.com"
 
 
 ssl_regexs = (
-    re.compile('.*/C=(?P<country>[\w]+).*'),
-    re.compile('.*/ST=(?P<state>[\w\s]+).*'),
-    re.compile('.*/L=(?P<location>[\w\s]+).*'),
-    re.compile('.*/O=(?P<organization>[\w\s,\'\-\.]+).*'),
-    re.compile('.*/OU=(?P<unit>[\w\s,\-\.]+).*'),
-    re.compile('.*/CN=(?P<common_name>[\w\s\'\-\.]+).*'),
+    re.compile(r'.*/C=(?P<country>[\w]+).*'),
+    re.compile(r'.*/ST=(?P<state>[\w\s]+).*'),
+    re.compile(r'.*/L=(?P<location>[\w\s]+).*'),
+    re.compile(r'.*/O=(?P<organization>[\w\s,\'\-\.]+).*'),
+    re.compile(r'.*/OU=(?P<unit>[\w\s,\-\.]+).*'),
+    re.compile(r'.*/CN=(?P<common_name>[\w\s\'\-\.]+).*'),
 )
 
 ssl_subject_map = {
@@ -35,12 +35,12 @@ ssl_subject_map = {
 
 ssl_text_regexs = (
     re.compile('.*Public Key Algorithm: (?P<public_key_algorithm>.*)'),
-    re.compile('.*Public-Key: \((?P<length>\d+).*\)'),
+    re.compile(r'.*Public-Key: \((?P<length>\d+).*\)'),
     re.compile('.*Signature Algorithm: (?P<signature_algorithm>.*)')
 )
 
 
-ssl_dns_regex = re.compile('DNS:[\w\s\-\.]+')
+ssl_dns_regex = re.compile(r'DNS:[\w\s\-\.]+')
 
 
 def certificate_dates(filename):

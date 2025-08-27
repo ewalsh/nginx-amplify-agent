@@ -105,7 +105,7 @@ def _glib_regex(pathname_pattern):
     :return: Compiled Regex
     """
     # First escape '.'
-    pathname_pattern.replace('.', '\.')
+    pathname_pattern.replace('.', r'\.')
 
     if has_magic(pathname_pattern):
         # Replace unspecific '*' and '?' with regex appropriate specifiers ('.')

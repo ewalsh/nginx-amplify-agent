@@ -25,7 +25,7 @@ def is_docker():
     :return: Bool True if docker ID is found, False otherwise.
     """
     try:
-        stdout, _ = subp.call('cat /proc/self/cgroup | fgrep -e docker | head -n 1 | sed "s/.*docker\/\(.*\)/\\1/"')
+        stdout, _ = subp.call(r'cat /proc/self/cgroup | fgrep -e docker | head -n 1 | sed "s/.*docker\/\(.*\)/\\1/"')
         docker_id = stdout[0]
         return len(docker_id) == 64 and ' ' not in docker_id
 

@@ -137,7 +137,7 @@ def etc_release():
     for release_file in glob.glob("/etc/*-release"):
         etc_release_out, _ = subp.call('cat %s' % release_file)
         for line in etc_release_out:
-            kv = re.match('(\w+)=(.+)', line)
+            kv = re.match(r'(\w+)=(.+)', line)
             if kv:
                 key, value = kv.group(1), kv.group(2)
                 for var_name, release_vars in mapper.items():
@@ -243,14 +243,15 @@ def alive_interfaces():
             ip_link_out, _ = subp.call("ip link show dev %s" % interface_name, check=False)
             if ip_link_out:
                 first_line = ip_link_out[0]
-                state_match = re.match('.+state\s+(\w+)\s+.*', first_line)
+                #state_match = re.match('.+state\s+(\w+)\s+.*', first_line)
+                state_match = re.match(r'.+state\s+(\w+)\s+.*', first_line)
                 if state_match:
                     state = state_match.group(1)
                     if interface_name == 'lo' or state == 'UP':
                         alive_interfaces.add(interface_name)
                     elif state == 'UNKNOWN':
                         # If state is 'UNKNOWN" (e.g. venet with OpenVZ) check to see if 'UP' is in bracket summary
-                        bracket_match = re.match('.+<([\w,\,]+)>.+', first_line)
+                        bracket_match = re.match(r'.+<([\w,\,]+)>.+', first_line)
                         bracket = bracket_match.group(0)
                         for value in bracket.split(','):
                             if value == 'UP':

@@ -1,7 +1,19 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 import sys
+import subprocess
 
+def install_if_missing(module):
+    try:
+        __import__(module)
+    # except ImportError:
+    #     subprocess.check_call([sys.executable, '-m', 'pip', 'install', '--system', module])
+    except ImportError:
+        subprocess.check_call([sys.executable, '-m', 'pip', 'install', module])
+
+# Auto-install required modules
+install_if_missing('gevent')
+install_if_missing('amplify')
 
 __author__ = "Mike Belov"
 __copyright__ = "Copyright (C) Nginx, Inc. All rights reserved."
